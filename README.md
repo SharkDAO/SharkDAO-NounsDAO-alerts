@@ -9,7 +9,7 @@ SharkDAO Noun Alerter periodically checks for new Noun auctions. When a new auct
 install all npm modules:
 
 ```
-node install
+npm install
 ```
 
 rename `blank.env` to `.env` and edit accordingly
