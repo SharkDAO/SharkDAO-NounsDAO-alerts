@@ -29,7 +29,7 @@ async function checkSupply() {
         .setImage(`attachment://${attachmentName}`)
         .setURL('https://nouns.wtf')
         .setTimestamp();
-      await client.channels.cache.get(config.discord_channel).send({ embeds: [message], files:[attachment] }).then(m => {
+      await client.channels.cache.get(config.DISCORD_CHANNEL_ID).send({ embeds: [message], files:[attachment] }).then(m => {
         m.react('🔥');
         m.react('🪙');
         m.react('✅');
