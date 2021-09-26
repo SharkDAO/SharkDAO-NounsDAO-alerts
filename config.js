@@ -4,9 +4,9 @@ dotenv.config();
 export const config = {
   JSON_RPC_URL: process.env.JSON_RPC_URL,
   DISCORD_KEY: process.env.DISCORD_KEY,
+  DISCORD_CHANNEL_ID: process.env.DISCORD_CHANNEL_ID,
   ETHERSCAN_KEY: process.env.ETHERSCAN_KEY,
   contract_address: '0x9C8fF314C9Bc7F6e59A9d9225Fb22946427eDC03',
-  discord_channel: '889377541675159605'
 };
 
 import axios from 'axios';
