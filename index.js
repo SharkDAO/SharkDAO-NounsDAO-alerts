@@ -1,22 +1,29 @@
-import { config, getContract, getImage, getSupply } from './config.js';
+import { config, getContract, getImage, getSupply, getSeeds, getNounDescription } from './config.js';
 
 import { Client, Intents, MessageEmbed, MessageAttachment } from 'discord.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 
-var current_supply = 0;
+var current_supply = 56;
 
 function log(text) {
   console.log(`${new Date().toISOString()}\t${text}`);
 }
 
 async function checkSupply() {
-  const new_current_supply = await getSupply();
+  var new_current_supply;
+  try {
+    new_current_supply = await getSupply();
+  } catch(e) {
+    log("Error getting supply");
+  }
   if (current_supply == 0) {
     current_supply = new_current_supply;
     log(`current_supply: ${current_supply}`);
   } else if (new_current_supply > current_supply) {
     for (let i = current_supply; i < new_current_supply; i++) {
       const png = await getImage(i);
+      const layers = await getSeeds(i);
+      const nD = await getNounDescription(i);
       const attachmentName = `Auction-${i}.png`;
       const attachment = new MessageAttachment(png, attachmentName);
       log(`Noun ${i} sent to Discord`);
@@ -25,6 +32,7 @@ async function checkSupply() {
         .setTitle(`*** Noun ${i} is live! ***`)
         .setDescription("What do we think of this new Noun??? You can vote for more than 1!")
         .addField('Voting guide', "🔥 (it's amazing)\n\n🪙 (if it's value)\n\n✅ (it's good looking)\n\n♻️ (pass, even if it's cheap)", false)
+        .addField(`Ingredients:`, `*background:* ${nD.background}\n*body:* ${nD.body}\n*accessory:* ${nD.accessory}\n*head:* ${nD.head}\n*glasses:* ${nD.glasses}`, false)
         .addField('Got any comments?', "Chat in the thread below!", false)
         .setImage(`attachment://${attachmentName}`)
         .setURL('https://nouns.wtf')
