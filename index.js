@@ -3,7 +3,7 @@ import { config, getContract, getImage, getSupply, getSeeds, getNounDescription 
 import { Client, Intents, MessageEmbed, MessageAttachment } from 'discord.js';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 
-var current_supply = 56;
+var current_supply = 0;
 
 function log(text) {
   console.log(`${new Date().toISOString()}\t${text}`);
